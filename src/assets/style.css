@@ -13,6 +13,7 @@
 body {
     font-family: "Trebuchet MS", sans-serif;
     color: #444444;
+    text-align: center;
 }
 
 table {
@@ -42,6 +43,20 @@ button {
     box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
 }
 
+select {
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    width: 150px;
+    height: 50px;
+    background: rgba(240, 240, 240, 0.5);
+    color: rgba(100, 100, 100, 1);
+    border-radius: 10px;
+    border: none;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin: 20px;
+}
+
 
 .row {
     padding: 10px;
@@ -50,16 +65,22 @@ button {
 }
 
 .modal {
-    display: none;
     position: fixed;
     z-index: 1;
     padding-top: 10px;
     left: 0;
-    top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
+    top: -100%;
+    opacity: 0;
+    transition: top 0.5s, opacity 0.5s;
+}
+
+.modal.show {
+    top: 0;
+    opacity: 1;
 }
 
 .modal-content {
@@ -70,10 +91,6 @@ button {
     border: 1px solid #888;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.5s;
-    animation-name: animatetop;
-    animation-duration: 0.5s;
 }
 
 .modal-header {
@@ -84,16 +101,6 @@ button {
 
 .modal-body {
     padding: 2px 16px;
-}
-
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
 }
 
 .close {
@@ -117,6 +124,8 @@ button {
 }
 
 .details_canvas {
-    width: 800px;
-    height: 400px;
+    width: 1000px !important;
+    height: 500px !important;
+    margin: auto;
+    padding: 10px;
 }

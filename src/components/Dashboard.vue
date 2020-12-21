@@ -50,11 +50,10 @@ export default {
       window.onclick = (ev) => {
         const i = modals.indexOf(ev.target);
         if (i !== -1) {
-          modals[i].style.display = "none";
+          modals[i].classList.remove('show');
         }
       }
     })();
-
 
   }
 }
