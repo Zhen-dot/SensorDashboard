@@ -14,14 +14,14 @@ class Data {
             }
         ]).catch(error => console.log(`Error saving data! ${error.stack}`));
 
-        // Writing to firestore
-        (async () => {
-            await db.doc(`readings/${this.deviceId}`).set({
-                time: this.timestamp,
-                temperature: this.temperature,
-                humidity: this.humidity
-            })
-        })();
+        // // Writing to firestore
+        // (async () => {
+        //     await db.doc(`readings/${this.deviceId}`).set({
+        //         time: this.timestamp,
+        //         temperature: this.temperature,
+        //         humidity: this.humidity
+        //     })
+        // })();
     }
 }
 
@@ -70,6 +70,7 @@ router.get('/readings/u/:device/:u', (req, res) => {
     influx.query(`
     select * from readings
     where device = '${req.params.device}'
+    order by time desc
     limit ${req.params.u}
     `).then(result => res.json(result)).catch(error => res.status(500).send(error.stack));
 });
@@ -81,6 +82,7 @@ router.get('/readings/time/:device/:time/:group', (req, res) => {
     where device = '${req.params.device}'
     and time > now() - ${req.params.time}
     group by time(${req.params.group}) fill(none)
+    order by time desc
     `).then(result => res.json(result)).catch(error => res.status(500).send(error.stack));
 });
 

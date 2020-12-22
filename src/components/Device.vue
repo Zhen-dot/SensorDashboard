@@ -39,11 +39,15 @@
         </tr>
         <tr>
           <td>Temperature</td>
-          <td>{{ temperature }}</td>
+          <td>
+            <div :id="d_name + 'tem_circle'" class="tem_circle"></div>
+          </td>
         </tr>
         <tr>
           <td>Humidity</td>
-          <td>{{ humidity }}</td>
+          <td>
+            <div :id="d_name + 'hum_circle'" class="hum_circle"></div>
+          </td>
         </tr>
         <tr>
           <td colspan="2" style="vertical-align: top">
@@ -57,7 +61,7 @@
 
 <script>
 import {db} from "@/firebase";
-import {getTime, initChart} from "./functions";
+import {getTime, initChart, initCircle} from "./functions";
 
 export default {
   name: "Device",
@@ -67,7 +71,9 @@ export default {
       last_update: "-",
       temperature: "-",
       humidity: "-",
-      modal: null
+      modal: null,
+      tem_circle: null,
+      hum_circle: null
     }
   },
   methods: {
@@ -81,14 +87,17 @@ export default {
         // Init charts
         this.rtgraph = initChart(document.getElementById(`${this.d_name}/rtg`).getContext("2d"), "Live updates", [doc.data()], 10);
         this.dtgraph = initChart(document.getElementById(`${this.d_name}/dtg`).getContext("2d"), "Last 1 updates", [doc.data()], 1);
+
+        this.tem_circle = initCircle("tem", `#${this.d_name}tem_circle`);
+        this.hum_circle = initCircle("hum", `#${this.d_name}hum_circle`);
       })();
     },
 
     updateRtG(time, temperature, humidity) {
       // Update realtime labels
       this.last_update = time;
-      this.temperature = temperature;
-      this.humidity = humidity;
+      this.updateTem(temperature);
+      this.updateHum(humidity);
 
       const chart = this.rtgraph;
       // Delete old chart data. Doesnt delete if not yet at limit
@@ -104,6 +113,18 @@ export default {
       chart.data.datasets[0].data.unshift(temperature);
       chart.data.datasets[1].data.unshift(humidity);
       chart.update();
+    },
+
+    updateTem(temperature) {
+      this.temperature = temperature;
+      this.tem_circle.animate((temperature - 20) / 10);
+      this.tem_circle.setText(temperature);
+    },
+
+    updateHum(humidity) {
+      this.humidity = humidity;
+      this.hum_circle.animate((humidity - 55) / 25);
+      this.hum_circle.setText(humidity);
     },
 
     updateDtG() {
@@ -135,14 +156,13 @@ export default {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           const chart = this.dtgraph;
-          const q_data = JSON.parse(xhr.responseText);
-          console.log(q_data);
+          const q_data = JSON.parse(xhr.responseText).reverse();
           chart.data.labels = q_data.map(o => getTime(o.time));
           chart.data.datasets[0].data = q_data.map(o => o.temperature.toFixed(2));
           chart.data.datasets[1].data = q_data.map(o => o.humidity.toFixed(2));
 
-          // Update title & refresh
-          chart.options.title.text = `Updates from ${getTime(q_data[0].time)} to ${getTime(q_data[q_data.length - 1].time)}`
+          // Update title & refresh// chart.options.title.text = `Updates from ${getTime(q_data[0].time)} ${new Date(q_data[0].time).toLocaleDateString()} to ${getTime(q_data[q_data.length - 1].time)} ${new Date(q_data[q_data.length - 1].time).toLocaleDateString()}`
+          chart.options.title.text = `Updates from ${new Date(q_data[0].time)} to ${new Date(q_data[q_data.length - 1].time)}`
           chart.update();
         }
       }
@@ -159,3 +179,18 @@ export default {
   }
 }
 </script>
+
+<style>
+.tem_circle {
+  margin: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+.hum_circle {
+  margin: 20px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+</style>

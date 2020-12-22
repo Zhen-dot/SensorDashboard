@@ -20,6 +20,7 @@
     "jquery": "^3.5.1",
     "jquery-circle-progress": "^1.2.2",
     "mqtt": "^4.2.6",
+    "progressbar.js": "^1.1.0",
     "vue": "^2.6.11",
     "xmlhttprequest": "^1.8.0"
   },

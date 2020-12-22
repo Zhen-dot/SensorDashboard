@@ -1,4 +1,5 @@
 import Chart from "chart.js";
+import {Circle, SemiCircle} from "progressbar.js";
 
 function getTime(time) {
     return new Date(time).toLocaleTimeString()
@@ -45,6 +46,49 @@ function initChart(ctx, title, data, limit) {
     })
 }
 
+function initCircle(mode, container) {
+    switch (mode) {
+        case "tem": {
+            return new Circle(container, {
+                strokeWidth: 9,
+                trailColor: '#eee',
+                trailWidth: 3,
+                easing: 'easeInOut',
+                duration: 1000,
+                svgStyle: null,
+                text: {value: ''},
+                from: {color: '#ec9706'},
+                to: {color: '#fc6a03'},
+                // Set default step function for all animate calls
+                step: (state, bar) => {
+                    bar.path.setAttribute('stroke', state.color);
+                    if (bar.value() === 0) bar.setText('20.00')
+                    bar.text.style.color = state.color;
+                }
+            });
+        }
+        case "hum": {
+            return new Circle(container, {
+                strokeWidth: 9,
+                trailColor: '#eee',
+                trailWidth: 3,
+                easing: 'easeInOut',
+                duration: 1000,
+                svgStyle: null,
+                text: {value: ''},
+                from: {color: '#57a0d2'},
+                to: {color: '#008ecc'},
+                // Set default step function for all animate calls
+                step: (state, bar) => {
+                    bar.path.setAttribute('stroke', state.color);
+                    if (bar.value() === 0) bar.setText('55.00')
+                    bar.text.style.color = state.color;
+                }
+            });
+        }
+    }
+}
+
 export {
-    getTime, initChart
+    getTime, initChart, initCircle
 }
