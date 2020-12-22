@@ -12,6 +12,8 @@
     "chartjs-plugin-datalabels": "^0.7.0",
     "core-js": "^3.6.5",
     "firebase": "^8.2.1",
+    "jquery": "^3.5.1",
+    "jquery-circle-progress": "^1.2.2",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -26,7 +28,8 @@
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "jquery": true
     },
     "extends": [
       "plugin:vue/essential",
