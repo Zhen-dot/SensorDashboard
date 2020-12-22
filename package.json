@@ -20,7 +20,8 @@
     "jquery": "^3.5.1",
     "jquery-circle-progress": "^1.2.2",
     "mqtt": "^4.2.6",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
