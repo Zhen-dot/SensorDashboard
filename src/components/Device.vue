@@ -81,12 +81,6 @@ export default {
         // Init charts
         this.rtgraph = initChart(document.getElementById(`${this.d_name}/rtg`).getContext("2d"), "Live updates", [doc.data()], 10);
         this.dtgraph = initChart(document.getElementById(`${this.d_name}/dtg`).getContext("2d"), "Last 1 updates", [doc.data()], 1);
-
-        // Add firestore listener
-        db.doc(this.d_name).onSnapshot(snapshot => {
-          const data = snapshot.data();
-          this.updateRtG(getTime(data.time), data.temperature.toFixed(2), data.humidity.toFixed(2));
-        });
       })();
     },
 
@@ -136,7 +130,7 @@ export default {
           break;
       }
 
-      xhr.open("GET", `http://localhost:4000/${url}`);
+      xhr.open("GET", `http://localhost:4000/readings/${url}`);
       xhr.send();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {

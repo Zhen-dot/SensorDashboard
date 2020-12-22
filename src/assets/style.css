@@ -61,7 +61,6 @@ select {
 .row {
     padding: 10px;
     display: inline-block;
-    float: left;
 }
 
 .modal {

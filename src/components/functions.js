@@ -10,18 +10,17 @@ function initChart(ctx, title, data, limit) {
         type: 'line',
         data: {
             labels: data.map(d => getTime(d.time)),
-            datasets: [
-                {
-                    label: 'Temperature',
-                    data: data.map(d => d.temperature.toFixed(2)),
-                    borderColor: 'rgba(255, 165, 0, 1)',
-                    backgroundColor: 'rgba(255, 165, 0, 0.2)'
-                }, {
-                    label: 'Humidity',
-                    data: data.map(d => d.humidity.toFixed(2)),
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)'
-                },
+            datasets: [{
+                label: 'Temperature',
+                data: data.map(d => d.temperature.toFixed(2)),
+                borderColor: 'rgba(255, 165, 0, 1)',
+                backgroundColor: 'rgba(255, 165, 0, 0.2)'
+            }, {
+                label: 'Humidity',
+                data: data.map(d => d.humidity.toFixed(2)),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)'
+            },
             ]
         },
         options: {
