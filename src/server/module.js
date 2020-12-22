@@ -14,14 +14,14 @@ class Data {
             }
         ]).catch(error => console.log(`Error saving data! ${error.stack}`));
 
-        // // Writing to firestore
-        // (async () => {
-        //     await db.doc(`readings/${this.deviceId}`).set({
-        //         time: this.timestamp,
-        //         temperature: this.temperature,
-        //         humidity: this.humidity
-        //     })
-        // })();
+        // Writing to firestore
+        (async () => {
+            await db.doc(`readings/${this.deviceId}`).set({
+                time: this.timestamp,
+                temperature: this.temperature,
+                humidity: this.humidity
+            })
+        })();
     }
 }
 
