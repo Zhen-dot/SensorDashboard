@@ -13,11 +13,13 @@ function initChart(ctx, title, data, limit) {
             labels: data.map(d => getTime(d.time)),
             datasets: [{
                 label: 'Temperature',
+                yAxisID: 'Temperature',
                 data: data.map(d => d.temperature.toFixed(2)),
                 borderColor: 'rgba(255, 165, 0, 1)',
                 backgroundColor: 'rgba(255, 165, 0, 0.2)'
             }, {
                 label: 'Humidity',
+                yAxisID: 'Humidity',
                 data: data.map(d => d.humidity.toFixed(2)),
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)'
@@ -31,9 +33,20 @@ function initChart(ctx, title, data, limit) {
             },
             scales: {
                 yAxes: [{
+                    id: 'Temperature',
+                    type: 'linear',
+                    position: 'left',
                     ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 100
+                        suggestedMin: 15,
+                        suggestedMax: 35
+                    }
+                }, {
+                    id: 'Humidity',
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                        suggestedMin: 50,
+                        suggestedMax: 85
                     }
                 }]
             },

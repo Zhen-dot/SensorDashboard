@@ -61,9 +61,20 @@ export default {
         },
         scales: {
           yAxes: [{
+            id: 'Temperature',
+            type: 'linear',
+            position: 'left',
             ticks: {
-              suggestedMin: 0,
-              suggestedMax: 100
+              suggestedMin: 15,
+              suggestedMax: 35
+            }
+          }, {
+            id: 'Humidity',
+            type: 'linear',
+            position: 'right',
+            ticks: {
+              suggestedMin: 50,
+              suggestedMax: 85
             }
           }]
         }
