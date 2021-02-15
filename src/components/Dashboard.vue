@@ -42,12 +42,14 @@ export default {
         labels: [],
         datasets: [{
           label: 'Temperature',
+          yAxisID: 'Temperature',
           data: [],
           borderColor: 'rgba(255, 165, 0, 1)',
           backgroundColor: 'rgba(255, 165, 0, 0.2)',
           borderWidth: 3
         }, {
           label: 'Humidity',
+          yAxisID: 'Humidity',
           data: [],
           borderColor: 'rgba(75, 192, 192, 1)',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
